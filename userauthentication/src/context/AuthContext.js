@@ -1,4 +1,4 @@
-import { createContext ,useMemo,useState } from "react";
+import { createContext ,useState } from "react";
 
 
 const AuthContext = createContext();
@@ -6,12 +6,23 @@ const AuthContext = createContext();
 
 function Provider({children}){
 
-    const [userState,setUserData] = useState({});
-    const [isUserLoggedIn,setLoginStatus] = useState(false);
+    const [user_state,setUserData] = useState({
+        auth:{},
+        isLoggedIn:false
+    });
+
+    const setAuthenticatedUser = (user_data) =>{
+        console.log(user_data)
+        setUserData((prevstate)=>{
+            return {...prevstate,
+            auth:user_data,
+            isLoggedIn:true}});
+
+    }
 
     const valueToShare ={
-        userState,
-        isUserLoggedIn,
+        user_state,
+        setAuthenticatedUser,
         }
         
         return(
@@ -22,5 +33,5 @@ function Provider({children}){
 }
 
 
-export {Provider}
-export default AuthContext
+export {Provider};
+export default AuthContext;

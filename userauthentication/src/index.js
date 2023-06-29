@@ -6,6 +6,8 @@ import './App.css';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+
 import { BrowserRouter } from 'react-router-dom';
 
 const el = document.getElementById('root');
