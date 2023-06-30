@@ -3,7 +3,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 
 import { Login } from './';
 import { SignUp } from './SignUp';
-import useAuthContext from '../hooks/CustomHooks';
+import {useAuthContext} from '../hooks/CustomHooks';
 
 
 export { AccountLayout };
@@ -14,7 +14,7 @@ function AccountLayout() {
 
     // redirect to home if already logged in
     if (user_state?.isLoggedIn) {
-        return <Navigate to="/" />;
+        return <Navigate to="/employe" />;
     }
 
     return (

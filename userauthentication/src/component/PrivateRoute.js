@@ -1,6 +1,7 @@
 import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
-import useAuthContext from '../hooks/CustomHooks';
+import {useAuthContext} from '../hooks/CustomHooks';
+import { EmployeeProvider } from '../context/EmployeeContext';
 
 export { PrivateRoute };
 
@@ -14,5 +15,9 @@ function PrivateRoute() {
     }
 
     // authorized so return outlet for child routes
-    return <Outlet />;
+    return (
+        <EmployeeProvider>
+        <Outlet />
+        </EmployeeProvider>
+        );
 }

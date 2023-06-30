@@ -3,6 +3,7 @@ import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-
 import { PrivateRoute } from './component/PrivateRoute';
 import { Home } from './Home/Home';
 import { AccountLayout } from './account';
+import EmployeeForm from './Home/EmployeeForm';
 
 function App() {
   return (
@@ -10,11 +11,13 @@ function App() {
         <Routes>
             {/* private */}
               <Route element={<PrivateRoute />}>
-              <Route path="/" element={<Home />} />
+              <Route path="/employe" element={<Home />} />
+              <Route path="/employe/add" element={<EmployeeForm />} />
+              <Route path="/employe/edit/:id" element={<EmployeeForm />} />
             </Route>
             {/* public */}
               <Route path="account/*" element={<AccountLayout />} />
-              <Route path="*" element={<Navigate to="/" />} />
+              <Route path="*" element={<Navigate to="/account/login" />} />
         </Routes>
       </div>
   );

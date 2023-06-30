@@ -3,7 +3,7 @@ import { EMAIL_REGEX } from "../constants/constants";
 import { Link } from 'react-router-dom';
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from '../firebase';
-import useAuthContext from "../hooks/CustomHooks";
+import {useAuthContext} from "../hooks/CustomHooks";
 import {  useNavigate } from 'react-router-dom';
 
 function Login(){
@@ -21,7 +21,7 @@ function Login(){
   
         const user = userCredential.user;
         setAuthenticatedUser(user);
-        navigate("/")
+        navigate("/employe/")
   
       })
         .catch((error) => {
@@ -29,7 +29,7 @@ function Login(){
         const errorMessage = error.message;
         });
     };
-    console.log(errors)
+    
     return(
         <div className="card m-3">
         {user_state.isLoggedIn ? 'Yes' :'No'}
