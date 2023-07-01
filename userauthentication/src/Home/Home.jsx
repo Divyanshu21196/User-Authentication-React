@@ -1,4 +1,4 @@
-import React from 'react';
+import {React,useState} from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import {useAuthContext, useEmployeContext} from '../hooks/CustomHooks';
@@ -9,11 +9,17 @@ export { Home };
 
 function Home() {
 
-    const {config,employee_state} = useEmployeContext();
+    const {config,employee_state,handleSearchedResults} = useEmployeContext();
 
     const { user_state } = useAuthContext();
 
-    console.log(employee_state)
+    const [search_term,setSearchTerm] = useState('');
+
+    const handleChange = (event) =>{
+        setSearchTerm(event.target.value);
+        handleSearchedResults(search_term);
+    }
+
     return (
         <EmployeeProvider>
         <div className='container'>
@@ -27,7 +33,13 @@ function Home() {
         </div>
             <p>Hello Welcome to Employee Management Kiosk</p>
             <>
-            <HomeTable data={employee_state}  config={config}/>
+            <div className='col-md-4'>
+                <label className='form-label'>Search</label>
+                <input type="text" value={search_term} onChange={handleChange} placeholder='Search By Name or Email' className='form-control'/>
+            </div>
+            <div className='row mt-4'>
+                <HomeTable data={employee_state}  config={config}/>
+            </div>
             </>
         </div>
         </EmployeeProvider>

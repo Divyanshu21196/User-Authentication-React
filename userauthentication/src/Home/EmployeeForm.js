@@ -3,22 +3,43 @@ import { Link } from 'react-router-dom';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-import {useState} from 'react';
-import {  useNavigate } from 'react-router-dom';
+import {useState,useEffect} from 'react';
+import {  useNavigate ,useParams} from 'react-router-dom';
 
 import { EMAIL_REGEX } from "../constants/constants";
 import { useEmployeContext } from "../hooks/CustomHooks"
 
+import moment from"moment";
 
 
 function EmployeeForm(){
 
-    const {is_add_event,handleSubmitHandler,editBookHandler,employee_state} = useEmployeContext();
-    const { register, handleSubmit,formState:{errors,isSubmitting} } = useForm();
+    const {is_add_event,handleSubmitHandler,employee_state,handlerEditSubmit} = useEmployeContext();
+    const { register, handleSubmit,formState:{errors,isSubmitting},setValue } = useForm();
 
     const [startDate, setStartDate] = useState(new Date());
     const [suceessMessage,setSuccessMessage] = useState('');
     const navigate = useNavigate();
+
+    const {id} = useParams();
+   
+    useEffect(()=>{
+        if(!is_add_event)
+            setFormValues()        
+    },[])
+
+    const setFormValues = () =>{
+        const find_value = (employee_state || []).find(employee=>employee.id == id);
+
+        if(find_value){
+            setValue('name',find_value?.name);
+            setValue('salary',find_value?.salary);
+            setValue('email',find_value?.email);
+            setValue('is_active',find_value?.is_active);
+            setStartDate(new Date(find_value?.dob));
+        }
+
+    }
 
 
     const  onSubmit = async(data) => {
@@ -32,13 +53,21 @@ function EmployeeForm(){
 
 
         const new_obj_keys = {};
-        new_obj_keys.id = employee_state.length ? (employee_state.length + 1) : 1; 
+        new_obj_keys.id = (is_add_event) ?  (employee_state.length ? (employee_state.length + 1) : 1) : id; 
         new_obj_keys.salary = parseFloat(data.salary).toFixed(2);
-        new_obj_keys.dob = startDate;
+        new_obj_keys.dob = moment(startDate).format("YYYY-MM-DD ");
+        new_obj_keys.is_active = (is_add_event) ? true : data.is_active
         data = {...data,...new_obj_keys};
-        handleSubmitHandler(data);
-        setSuccessMessage('Employee Added SuccessFully');
 
+        if(is_add_event){
+            handleSubmitHandler(data);
+            setSuccessMessage('Employee Added SuccessFully');    
+        }else{
+            handlerEditSubmit(data);
+            setSuccessMessage('Employee Details Edited Successfully');
+        }
+
+        
         setTimeout(()=>{navigate("/employe/")},2000)
     }
 

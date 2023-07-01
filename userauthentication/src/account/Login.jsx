@@ -32,7 +32,6 @@ function Login(){
     
     return(
         <div className="card m-3">
-        {user_state.isLoggedIn ? 'Yes' :'No'}
         <h4 className="card-header">Login</h4>
             <div className="card-body">
                 <form onSubmit={handleSubmit(onSubmit)}>
