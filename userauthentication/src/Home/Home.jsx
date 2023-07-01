@@ -4,6 +4,7 @@ import {useAuthContext, useEmployeContext} from '../hooks/CustomHooks';
 import HomeTable from './EmployeeTable';
 import { EmployeeProvider } from '../context/EmployeeContext';
 import PaginatedItems from '../component/PaginatedItems';
+import moment from"moment";
 
 
 export { Home };
@@ -27,8 +28,10 @@ function Home() {
         <div className='row'>
             <div className='col-md-6 text-center'>
             <h1>Hi {user_state?.auth?.email}...</h1>
+            
             </div>
             <div className='col-md-6'>
+            <h4>Date:-{moment(new Date()).format("YYYY-MM-DD ")}</h4>
             <Link to="../employe/add" className="btn btn-info mt-4">Register</Link>
             </div>
         </div>
