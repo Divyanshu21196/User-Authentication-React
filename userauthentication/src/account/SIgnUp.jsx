@@ -23,7 +23,7 @@ function SignUp(){
             setMessage('User Signed Up Successfully');
             setTimeout(()=>{
             navigate("/login")
-            },2000)
+            },1000)
         })
         .catch((error) => {
             const errorMessage = error.message;

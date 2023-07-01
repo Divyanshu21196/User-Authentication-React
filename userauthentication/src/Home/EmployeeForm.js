@@ -68,7 +68,7 @@ function EmployeeForm(){
         }
 
         
-        setTimeout(()=>{navigate("/employe/")},2000)
+        setTimeout(()=>{navigate("/employe/")},1000)
     }
 
     return(
@@ -104,7 +104,7 @@ function EmployeeForm(){
                 {isSubmitting && <span className="spinner-border spinner-border-sm me-1"></span>}
                 Register
             </button>
-            <Link to="../login" className="btn btn-link">Cancel</Link>
+            <Link to="../employe" className="btn btn-link">Cancel</Link>
         </form>
     </div>
     </div>

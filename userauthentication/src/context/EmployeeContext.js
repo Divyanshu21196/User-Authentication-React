@@ -36,12 +36,13 @@ function EmployeeProvider({children}){
             label:'Status',
             render :(employee)=><div class="btn-group btn-group-toggle" data-toggle="buttons">
             <label class="btn btn-secondary active">
-              <input type="radio" name="options" id="option1" autocomplete="off" checked /> Active
+              <input type="radio" name="options" onChange={()=>handleStatusChange(employee,true)} id="option1" autocomplete="off" checked={employee.is_active} /> Active
             </label>
             <label class="btn btn-secondary">
-              <input type="radio" name="options" id="option2" autocomplete="off" /> InActive
+              <input type="radio" name="options" onChange={()=>handleStatusChange(employee,false)} id="option2" autocomplete="off" checked={!employee.is_active}/> InActive
             </label>
           </div>,
+          data:employee_state
         },
         {
             label:'Action',
@@ -55,16 +56,36 @@ function EmployeeProvider({children}){
         setEmployeeData((prevState)=>[...prevState,{...employee_info}]);
     }
 
-    const sortListingByName = () =>{
+    const handleStatusChange = (employee_info,status) => {
+            const updatedArray = (employee_state || []).map((employee)=>{
+
+                if(employee.id ==  employee_info.id){
+                    employee.is_active = status
+                }
+                return employee 
+            });
+            setEmployeeData(updatedArray)
         
-        let updated_array =[];
+    }
+
+    const sortListingByName = (data) =>{
+        let updated_array = data;
+        
         if(is_listing_ordered_asc){
-            updated_array = (employee_state || []).sort((a, b) => { return (a.name < b.name) ? 1 : -1});
+        
+            updated_array.sort((e1, e2) => e1.name.toLowerCase().localeCompare(e2.name.toLowerCase()));
+         
         }else{
-             updated_array = (employee_state  || []).sort((a, b) =>{ return(a.name > b.name) ? 1: -1});
+        
+            updated_array.sort((e1, e2) => e2.name.toLowerCase().localeCompare(e1.name.toLowerCase()));
+        
         }
-        setEmployeeData(updated_array)
+
+        setEmployeeData((prevState)=>[...prevState,...updated_array])
+         
         setSortingOrder(!is_listing_ordered_asc)
+       
+        
     }
 
     const handleSearchedResults = (seacrh_item) => {

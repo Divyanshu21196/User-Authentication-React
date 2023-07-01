@@ -3,10 +3,10 @@ import { useEmployeContext } from "../hooks/CustomHooks"
 
 function HomeTable({data,config}){
 
-    const {sortListingByName} = useEmployeContext();
+    const {sortListingByName,employee_state} = useEmployeContext();
 
     const onSortingHandler = () =>{
-        sortListingByName()
+        sortListingByName(data)
     }
 
     //----------------------create dynamic headers while looping over config element------------------
