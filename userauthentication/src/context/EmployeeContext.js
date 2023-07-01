@@ -139,12 +139,19 @@ function EmployeeProvider({children}){
         setEventStatus(true);
     }
 
+    const setPaginatedListing = (employess_list) =>{
+        const new_arr = [...employess_list]
+        console.log(employess_list)
+        setEmployeeData(new_arr);
+    }
+
 
 
     const valueToShare = {
         employee_state,
         is_add_event,
         config,
+        setPaginatedListing,
         handleSubmitHandler,
         handlerEditSubmit,
         deleteBookHandler,

@@ -1,9 +1,10 @@
 import {React,useState} from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import {useAuthContext, useEmployeContext} from '../hooks/CustomHooks';
 import HomeTable from './EmployeeTable';
 import { EmployeeProvider } from '../context/EmployeeContext';
+import PaginatedItems from '../component/PaginatedItems';
+
 
 export { Home };
 
@@ -39,6 +40,9 @@ function Home() {
             </div>
             <div className='row mt-4'>
                 <HomeTable data={employee_state}  config={config}/>
+            </div>
+            <div className='row mt-4'>
+                <PaginatedItems itemsPerPage={1} data={employee_state} />
             </div>
             </>
         </div>
